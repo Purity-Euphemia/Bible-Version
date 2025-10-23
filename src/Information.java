@@ -10,8 +10,9 @@ public class Information {
     private String source;
     private String language;
     private String coverage;
+    private String creactor;
 
-    public Information(String title, String subject, String description, String publisher, String date, String type, String format, String identifier, String source, String language, String coverage) {
+    public Information(String title, String subject, String description, String publisher, String date, String type, String format, String identifier, String source, String language, String coverage, String creactor) {
         this.title = title;
         this.subject = subject;
         this.description = description;
@@ -23,6 +24,7 @@ public class Information {
         this.source = source;
         this.language = language;
         this.coverage = coverage;
+        this.creactor = creactor;
     }
     public String getTitle() {
         return title;
@@ -56,5 +58,12 @@ public class Information {
     }
     public String getCoverage() {
         return coverage;
+    }
+    public String getCreactor() {
+        return creactor;
+    }
+    @Override
+    public String toString() {
+        return "title: " + title + "\nCreator; " + creactor + "\nSubject: " + subject + "\nPublisher: " + publisher + "\nDate: " + date + "\nLanguage: " + language;
     }
 }

@@ -3,11 +3,10 @@ import java.util.List;
 
 public class Chapter {
     private int number;
-    private List<Verse> verses;
+    private List<Verse> verses = new ArrayList<>();
 
    public Chapter(int number) {
        this.number = number;
-       this.verses = new ArrayList<>();
    }
    public void addVerse(Verse verse) {
        verses.add(verse);
@@ -17,5 +16,9 @@ public class Chapter {
    }
    public List<Verse> getVerses() {
        return verses;
+   }
+   @Override
+   public String toString() {
+       return "Chapter " + number + " (" + verses.size() + " verses)";
    }
 }

@@ -5,13 +5,12 @@ public class BibleBook {
     private String name;
     private int number;
     private String shortName;
-    private List<Chapter> chapters;
+    private List<Chapter> chapters = new ArrayList<>();
 
     public BibleBook(int number, String name, String shortName){
         this.number = number;
         this.name = name;
         this.shortName = shortName;
-        this.chapters = new ArrayList<>();
     }
     public void addChapter(Chapter chapter) {
         chapters.add(chapter);
@@ -27,5 +26,9 @@ public class BibleBook {
     }
     public List<Chapter> getChapters() {
         return chapters;
+    }
+    @Override
+    public String toString() {
+        return "Book: " + name + " (" + chapters.size() + " chapters)";
     }
 }

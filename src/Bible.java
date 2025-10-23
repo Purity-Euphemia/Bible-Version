@@ -8,7 +8,7 @@ public class Bible {
     private String type;
     private int revision;
     private Information information;
-    private List<BibleBook> books;
+    private List<BibleBook> books = new ArrayList<>();
 
     public Bible(String version, String status, String biblename, String type, int revision){
         this.version = version;
@@ -16,7 +16,6 @@ public class Bible {
         this.biblename = biblename;
         this.type = type;
         this.revision = revision;
-        this.books = new ArrayList<>();
     }
 
     public void setInformation(Information information) {
@@ -47,5 +46,10 @@ public class Bible {
 
     public List<BibleBook> getBooks() {
         return books;
+    }
+    @Override
+    public String toString() {
+        return "Books: " + biblename + " (" + books.size() + " books)";
+
     }
 }
