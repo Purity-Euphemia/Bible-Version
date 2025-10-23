@@ -2,14 +2,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BibleBook {
-    private String name;
+    private String BookName;
     private int number;
     private String shortName;
     private List<Chapter> chapters = new ArrayList<>();
 
-    public BibleBook(int number, String name, String shortName){
+    public BibleBook(int number, String BookName, String shortName){
         this.number = number;
-        this.name = name;
+        this.BookName = BookName;
         this.shortName = shortName;
     }
     public void addChapter(Chapter chapter) {
@@ -18,8 +18,8 @@ public class BibleBook {
     public int getNumber() {
         return number;
     }
-    public String getName() {
-        return name;
+    public String getBookName() {
+        return BookName;
     }
     public String getShortName() {
         return shortName;
@@ -29,6 +29,6 @@ public class BibleBook {
     }
     @Override
     public String toString() {
-        return "Book: " + name + " (" + chapters.size() + " chapters)";
+        return "Book: " + BookName + " (" + chapters.size() + " chapters)";
     }
 }
