@@ -56,15 +56,19 @@ public class Bible {
         return books;
     }
 
-    public List<Verse> searchBySentence(String sentence) {
+    public List<Verse> searchByKeywords(String sentence) {
         List<Verse> results = new ArrayList<>();
-        String lowerSentence = sentence.toLowerCase();
+        String[] keywords = sentence.toLowerCase().split("\\s+");
 
         for (BibleBook book : books) {
             for (Chapter chapter : book.getChapters()) {
                 for (Verse verse : chapter.getVerses()) {
-                    if (verse.getText().toLowerCase().contains(lowerSentence)) {
-                        results.add(verse);
+                    String verseText = verse.getText().toLowerCase();
+                    for (String keyword : keywords) {
+                        if (verseText.contains(keyword)) {
+                            results.add(verse);
+                            break;  
+                        }
                     }
                 }
             }
@@ -72,6 +76,7 @@ public class Bible {
 
         return results;
     }
+
 
 
     @Override
