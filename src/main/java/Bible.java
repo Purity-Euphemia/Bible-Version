@@ -56,27 +56,22 @@ public class Bible {
         return books;
     }
 
-    public List<Verse> searchByKeywords(String sentence) {
-        List<Verse> results = new ArrayList<>();
-        String[] keywords = sentence.toLowerCase().split("\\s+");
-
+    public Verse getVerse(String bookName, int chapterNumber, int verseNumber) {
         for (BibleBook book : books) {
-            for (Chapter chapter : book.getChapters()) {
-                for (Verse verse : chapter.getVerses()) {
-                    String verseText = verse.getText().toLowerCase();
-                    for (String keyword : keywords) {
-                        if (verseText.contains(keyword)) {
-                            results.add(verse);
-                            break;  
+            if (book.getBookName().equalsIgnoreCase(bookName)) {
+                for (Chapter chapter : book.getChapters()) {
+                    if (chapter.getNumber() == chapterNumber) {
+                        for (Verse verse : chapter.getVerses()) {
+                            if (verse.getNumber() == verseNumber) {
+                                return verse;
+                            }
                         }
                     }
                 }
             }
         }
-
-        return results;
+        return null;
     }
-
 
 
     @Override

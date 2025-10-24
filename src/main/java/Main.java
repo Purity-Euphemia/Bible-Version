@@ -1,43 +1,56 @@
 package main.java;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        String filePath = "C:\\Users\\DELL\\OneDrive\\Documents\\BibleVersion\\src\\main\\resources\\kjv.xml";
+        String filePath = "src/main/resources/kjv.xml";
         Bible bible = BibleXmlReader.readBible(filePath);
 
         if (bible == null) {
-            System.out.println(" Failed to load Bible file!");
+            System.out.println("Failed to load Bible file!");
             return;
         }
 
-        System.out.println("✅ Bible loaded successfully: " + bible.getBiblename());
-        System.out.println("Version: " + bible.getVersion());
-        System.out.println("Books found: " + bible.getBooks().size());
+        System.out.println("✅ " + bible.getBiblename() + " loaded successfully!");
+        System.out.println("Type a verse reference (e.g., John 3:16 or Genesis 1:1)");
+        System.out.println("Type 'exit' to quit.\n");
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter text to search in the Bible (or 'exit' to quit):");
-
         while (true) {
             System.out.print("> ");
-            String query = scanner.nextLine();
-            if (query.equalsIgnoreCase("exit")) break;
+            String input = scanner.nextLine().trim();
 
-            List<Verse> results = bible.searchBySentence(query);
+            if (input.equalsIgnoreCase("exit")) break;
+            if (input.isEmpty()) continue;
 
-            if (results.isEmpty()) {
-                System.out.println("No verses found for: " + query);
-            } else {
-                System.out.println("Found " + results.size() + " verse(s):");
-                for (Verse v : results) {
-                    System.out.println(v);
+            try {
+
+                int lastSpace = input.lastIndexOf(' ');
+                if (lastSpace == -1 || !input.contains(":")) {
+                    System.out.println("⚠️ Invalid format! Use Book Chapter:Verse (e.g., John 3:16)");
+                    continue;
                 }
+
+                String bookName = input.substring(0, lastSpace);
+                String[] parts = input.substring(lastSpace + 1).split(":");
+                int chapterNumber = Integer.parseInt(parts[0]);
+                int verseNumber = Integer.parseInt(parts[1]);
+
+                Verse verse = bible.getVerse(bookName, chapterNumber, verseNumber);
+
+                if (verse != null) {
+                    System.out.println(bookName + " " + chapterNumber + ":" + verseNumber + " → " + verse.getText());
+                } else {
+                    System.out.println(" Verse not found: " + input);
+                }
+
+            } catch (Exception e) {
+                System.out.println("⚠️ Invalid input! Use format like 'John 3:16'");
             }
         }
 
         scanner.close();
-        System.out.println("Goodbye!");
+        System.out.println("👋 Goodbye!");
     }
 }
